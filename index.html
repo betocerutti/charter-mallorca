@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plan de Navegación · Mallorca–Menorca · Agosto 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,400..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+  :root{
+    --sea:#D8EAEE;
+    --sea-deep:#C3DDE4;
+    --land:#F1E4C3;
+    --land-edge:#C9B07E;
+    --ink:#15333E;
+    --ink-soft:#4E6A74;
+    --course:#C2185B;
+    --buoy:#0E7C66;
+    --paper:#FBF7EC;
+    --rule:#D9CFB6;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Archivo',system-ui,sans-serif;
+    font-variation-settings:'wdth' 92;
+    line-height:1.55;
+  }
+  .mono{font-family:'IBM Plex Mono',monospace}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+  /* ---------- Cabecera estilo cajetín de carta náutica ---------- */
+  header{
+    border-bottom:3px double var(--ink);
+    padding:44px 0 28px;
+  }
+  .chart-no{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.18em;color:var(--ink-soft);text-transform:uppercase;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  h1{
+    font-size:clamp(30px,5.4vw,56px);
+    font-weight:850;
+    font-variation-settings:'wdth' 78;
+    text-transform:uppercase;
+    letter-spacing:.01em;
+    line-height:1.02;
+    margin:14px 0 10px;
+  }
+  h1 em{font-style:normal;color:var(--course)}
+  .subtitle{font-size:15px;color:var(--ink-soft);max-width:640px}
+  .keyfacts{display:flex;flex-wrap:wrap;gap:0;margin-top:26px;border:1.5px solid var(--ink)}
+  .keyfacts div{flex:1 1 150px;padding:12px 16px;border-right:1.5px solid var(--ink)}
+  .keyfacts div:last-child{border-right:0}
+  .keyfacts .k{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-soft)}
+  .keyfacts .v{font-size:22px;font-weight:800;font-variation-settings:'wdth' 80;margin-top:2px}
+  .keyfacts .v small{font-size:12px;font-weight:500;color:var(--ink-soft)}
+
+  section{padding:46px 0 8px}
+  h2{
+    font-size:13px;font-family:'IBM Plex Mono',monospace;font-weight:600;
+    letter-spacing:.22em;text-transform:uppercase;color:var(--course);
+    margin-bottom:18px;display:flex;align-items:center;gap:14px;
+  }
+  h2::after{content:"";flex:1;height:1px;background:var(--rule)}
+
+  /* ---------- Carta ---------- */
+  .chart-frame{border:1.5px solid var(--ink);background:var(--sea);position:relative}
+  .chart-frame svg{display:block;width:100%;height:auto}
+  .chart-caption{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);padding:10px 14px;border-top:1.5px solid var(--ink);background:var(--paper);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+
+  /* ---------- Etapas ---------- */
+  .legs{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-top:6px}
+  .leg{border:1.5px solid var(--ink);background:#fff;display:flex;flex-direction:column}
+  .leg-head{display:flex;align-items:stretch;border-bottom:1.5px solid var(--ink)}
+  .leg-no{
+    background:var(--ink);color:var(--paper);
+    font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:13px;
+    display:flex;flex-direction:column;justify-content:center;align-items:center;
+    min-width:66px;padding:10px 6px;line-height:1.2;text-align:center;
+  }
+  .leg-no.crossing{background:var(--course)}
+  .leg-no span{font-size:10px;font-weight:400;opacity:.8}
+  .leg-title{padding:12px 14px}
+  .leg-title h3{font-size:18px;font-weight:800;font-variation-settings:'wdth' 82;line-height:1.15}
+  .leg-title .date{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);letter-spacing:.08em;text-transform:uppercase;margin-top:2px}
+  .leg-stats{display:flex;border-bottom:1px dashed var(--rule)}
+  .leg-stats div{flex:1;padding:8px 14px;font-family:'IBM Plex Mono',monospace;font-size:12px;border-right:1px dashed var(--rule)}
+  .leg-stats div:last-child{border-right:0}
+  .leg-stats b{display:block;font-size:15px;font-weight:600;color:var(--course)}
+  .leg-body{padding:13px 15px 16px;font-size:14px;color:#23414c;flex:1}
+  .leg-body .anchor{
+    margin-top:10px;padding:9px 11px;background:var(--paper);border-left:3px solid var(--buoy);
+    font-size:13px;
+  }
+  .leg-body .anchor b{color:var(--buoy)}
+  .navily{font-size:11px;font-family:'IBM Plex Mono',monospace;color:var(--ink-soft)}
+
+  /* ---------- Gráficos ---------- */
+  .charts2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px}
+  .panel{border:1.5px solid var(--ink);background:#fff;padding:18px 18px 10px}
+  .panel h4{font-size:14px;font-weight:800;font-variation-settings:'wdth' 82;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
+  .panel p{font-size:12px;color:var(--ink-soft);margin-bottom:10px}
+
+  table{width:100%;border-collapse:collapse;font-size:13px;background:#fff}
+  th{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);text-align:left;padding:9px 12px;border-bottom:1.5px solid var(--ink)}
+  td{padding:9px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
+  tr.total td{border-top:2px solid var(--ink);border-bottom:0;font-weight:800}
+  td.num,th.num{text-align:right;font-family:'IBM Plex Mono',monospace}
+  .tbl-frame{border:1.5px solid var(--ink);overflow-x:auto}
+
+  .notes{border:1.5px solid var(--ink);background:#fff;padding:20px 22px;font-size:14px}
+  .notes li{margin:0 0 10px 18px}
+  .notes b{color:var(--course)}
+
+  footer{padding:34px 0 50px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);border-top:3px double var(--ink);margin-top:50px}
+
+  @media (max-width:640px){
+    .keyfacts div{flex:1 1 46%;border-top:1.5px solid var(--ink)}
+    .keyfacts{border-top:0}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="chart-no">
+      <span>Carta de derrota · Reserva IRIS 918790487</span>
+      <span>Bavaria Cruiser 51 «Firewall» · Vc 8 kn</span>
+    </div>
+    <h1>Vuelta a Mallorca<br>con travesía a <em>Menorca</em></h1>
+    <p class="subtitle">Salida el domingo 16 de agosto de 2026 desde Club Nàutic s'Arenal, rumbo norte en sentido horario. Fondeaderos seleccionados de la guía Navily «Los mejores fondeaderos de Mallorca».</p>
+    <div class="keyfacts">
+      <div><span class="k">Salida</span><div class="v">DOM 16<small> AGO · 11:00</small></div></div>
+      <div><span class="k">Regreso a base</span><div class="v">SÁB 22<small> AGO · 09:00</small></div></div>
+      <div><span class="k">Distancia total</span><div class="v">244<small> NM</small></div></div>
+      <div><span class="k">Horas de navegación</span><div class="v">~30.5<small> H</small></div></div>
+      <div><span class="k">Noches a bordo</span><div class="v">6<small> FONDEADAS</small></div></div>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>Carta de derrota</h2>
+    <div class="chart-frame">
+      <svg viewBox="0 0 1000 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Carta de la ruta Mallorca a Menorca">
+        <defs>
+          <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+            <path d="M50 0H0V50" fill="none" stroke="#A9CBD4" stroke-width="0.6"/>
+          </pattern>
+          <marker id="arr" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
+            <path d="M0 0L10 5L0 10z" fill="#C2185B"/>
+          </marker>
+        </defs>
+
+        <!-- mar -->
+        <rect width="1000" height="600" fill="#D8EAEE"/>
+        <rect width="1000" height="600" fill="url(#grid)"/>
+        <!-- veriles decorativos -->
+        <path d="M-10 520 Q200 470 330 560 T700 540" fill="none" stroke="#B6D6DE" stroke-width="1.4" stroke-dasharray="2 5"/>
+        <path d="M460 40 Q560 90 640 60 T880 200" fill="none" stroke="#B6D6DE" stroke-width="1.4" stroke-dasharray="2 5"/>
+
+        <!-- MALLORCA -->
+        <path d="M32 307 L70 272 L120 240 L164 201 L200 177 L250 148 L320 112 L380 92 L436 83
+                 L420 98 L400 100 L378 118 L370 132 L398 142 L423 136 L412 162 L395 189 L430 200
+                 L464 213 L520 222 L559 230 L540 268 L512 300 L495 331 L478 368 L464 402 L444 425
+                 L427 443 L398 470 L364 497 L352 480 L341 467 L327 437 L300 442 L270 450 L245 455
+                 L232 420 L227 361 L205 338 L182 319 L160 345 L140 365 L123 378 L108 362 L100 349
+                 L80 340 L62 330 L45 320 Z"
+              fill="#F1E4C3" stroke="#C9B07E" stroke-width="2" stroke-linejoin="round"/>
+        <!-- MENORCA -->
+        <path d="M718 106 L716 80 L718 59 L750 38 L790 22 L836 6 L862 18 L880 38 L905 62 L925 95
+                 L936 124 L930 150 L927 172 L890 168 L840 160 L788 142 L750 124 Z"
+              fill="#F1E4C3" stroke="#C9B07E" stroke-width="2" stroke-linejoin="round"/>
+        <!-- CABRERA -->
+        <ellipse cx="316" cy="556" rx="26" ry="14" fill="#F1E4C3" stroke="#C9B07E" stroke-width="2"/>
+
+        <text x="240" y="300" font-family="Archivo,sans-serif" font-size="30" font-weight="800" letter-spacing="6" fill="#9B7E48" opacity=".55">MALLORCA</text>
+        <text x="770" y="92" font-family="Archivo,sans-serif" font-size="20" font-weight="800" letter-spacing="4" fill="#9B7E48" opacity=".55">MENORCA</text>
+        <text x="290" y="585" font-family="IBM Plex Mono,monospace" font-size="11" fill="#9B7E48">P.N. CABRERA</text>
+        <text x="560" y="430" font-family="IBM Plex Mono,monospace" font-size="12" letter-spacing="3" fill="#7FA6B0">MAR BALEAR</text>
+
+        <!-- DERROTA -->
+        <g fill="none" stroke="#C2185B" stroke-width="2.6" stroke-dasharray="9 5" stroke-linecap="round">
+          <path d="M227 368 L170 400 L128 396 L104 358" marker-end="url(#arr)"/>                                  <!-- D1 -->
+          <path d="M96 342 L60 318 L18 300 L25 280 L150 188 L210 160 L300 112 L430 70 L404 92" marker-end="url(#arr)"/> <!-- D2 -->
+          <path d="M414 84 L445 70 L718 116 L800 152 L920 178 L938 130" marker-end="url(#arr)"/>                  <!-- D3 -->
+          <path d="M936 138 L924 180 L726 122 L575 218" marker-end="url(#arr)"/>                                   <!-- D5 -->
+          <path d="M566 232 L520 310 L482 410 L440 452 L380 510 L355 470 L338 444" marker-end="url(#arr)"/>        <!-- D6 -->
+          <path d="M330 438 L268 468 L236 462 L229 376" marker-end="url(#arr)"/>                                   <!-- D7 -->
+        </g>
+
+        <!-- WAYPOINTS -->
+        <g font-family="IBM Plex Mono,monospace" font-size="11.5" fill="#15333E" font-weight="600">
+          <g><circle cx="227" cy="364" r="7" fill="#15333E"/><circle cx="227" cy="364" r="3" fill="#FBF7EC"/>
+             <text x="240" y="356">S'ARENAL · BASE</text></g>
+          <g><circle cx="100" cy="350" r="7" fill="#0E7C66"/><text x="38" y="338" fill="#0E7C66">① STA. PONÇA</text></g>
+          <g><circle cx="164" cy="198" r="5" fill="#C2185B"/><text x="86" y="190" fill="#C2185B">SA FORADADA</text></g>
+          <g><circle cx="402" cy="98" r="7" fill="#0E7C66"/><text x="318" y="64" fill="#0E7C66">② C. FORMENTOR</text></g>
+          <g><circle cx="936" cy="128" r="7" fill="#0E7C66"/><text x="868" y="118" fill="#0E7C66">③④ MAÓ</text></g>
+          <g><circle cx="566" cy="226" r="7" fill="#0E7C66"/><text x="582" y="232" fill="#0E7C66">⑤ CALA MOLTÓ</text></g>
+          <g><circle cx="432" cy="447" r="5" fill="#C2185B"/><text x="448" y="455" fill="#C2185B">C. MONDRAGÓ</text></g>
+          <g><circle cx="334" cy="440" r="7" fill="#0E7C66"/><text x="222" y="428" fill="#0E7C66">⑥ ES TRENC</text></g>
+        </g>
+
+        <!-- rosa de los vientos -->
+        <g transform="translate(648,470)">
+          <circle r="44" fill="none" stroke="#15333E" stroke-width="1.2"/>
+          <circle r="33" fill="none" stroke="#15333E" stroke-width=".6" stroke-dasharray="2 3"/>
+          <path d="M0 -44 L7 0 L0 44 L-7 0 Z" fill="#15333E"/>
+          <path d="M-44 0 L0 -7 L44 0 L0 7 Z" fill="#FBF7EC" stroke="#15333E" stroke-width="1"/>
+          <text y="-50" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="13" font-weight="600" fill="#C2185B">N</text>
+        </g>
+        <!-- escala -->
+        <g transform="translate(60,560)" font-family="IBM Plex Mono,monospace" font-size="10" fill="#15333E">
+          <line x1="0" y1="0" x2="154" y2="0" stroke="#15333E" stroke-width="2"/>
+          <line x1="0" y1="-5" x2="0" y2="5" stroke="#15333E" stroke-width="2"/>
+          <line x1="77" y1="-4" x2="77" y2="4" stroke="#15333E" stroke-width="1.4"/>
+          <line x1="154" y1="-5" x2="154" y2="5" stroke="#15333E" stroke-width="2"/>
+          <text y="16">0</text><text x="66" y="16">10</text><text x="140" y="16">20 NM</text>
+        </g>
+      </svg>
+      <div class="chart-caption">
+        <span>― ― rumbo previsto · ● fondeadero nocturno · ● parada de día</span>
+        <span>Sondas y derrotas orientativas — verificar con carta oficial y parte meteo</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Etapas día a día</h2>
+    <div class="legs">
+
+      <article class="leg">
+        <div class="leg-head"><div class="leg-no">D1<span>DOM 16</span></div>
+          <div class="leg-title"><h3>S'Arenal → Cala de Santa Ponça</h3><div class="date">Salida 11:00 · llegada ~13:15</div></div></div>
+        <div class="leg-stats"><div>Dist.<b>18 nm</b></div><div>Tiempo<b>2 h 15</b></div><div>Rumbo<b>W</b></div></div>
+        <div class="leg-body">
+          Primera etapa corta para estibar, probar el barco y cruzar la bahía de Palma doblando el Cap de Cala Figuera.
+          <div class="anchor"><b>Fondeo · noche 1:</b> arena a 5 m, fondeo fácil y muy protegida de N a S por el E. Servicios y avituallamiento a mano en el pueblo. <span class="navily">★ Selección Navily</span></div>
+        </div>
+      </article>
+
+      <article class="leg">
+        <div class="leg-head"><div class="leg-no">D2<span>LUN 17</span></div>
+          <div class="leg-title"><h3>Costa de Tramuntana → Cala Formentor</h3><div class="date">Salida 08:00 · llegada ~17:00</div></div></div>
+        <div class="leg-stats"><div>Dist.<b>59 nm</b></div><div>Tiempo<b>7 h 20</b></div><div>Rumbo<b>NE</b></div></div>
+        <div class="leg-body">
+          Doblamos Sa Dragonera y subimos toda la Tramuntana. Parada de baño y comida (~1,5 h) en <b>Sa Foradada</b>: fondear solo sobre los claros de arena, la posidonia está protegida. Pasamos frente a La Calobra (espectacular pero difícil y profunda — mejor solo visual) y doblamos el Cap de Formentor.
+          <div class="anchor"><b>Fondeo · noche 2:</b> Cala Formentor, badia de Pollença. Arena 4–8 m, tenedero excelente y muy abrigada — punto perfecto para saltar a Menorca al alba. <span class="navily">★ Sa Foradada: selección Navily</span></div>
+        </div>
+      </article>
+
+      <article class="leg">
+        <div class="leg-head"><div class="leg-no crossing">D3<span>MAR 18</span></div>
+          <div class="leg-title"><h3>Travesía a Menorca → Maó</h3><div class="date">Salida 07:00 · llegada ~14:00</div></div></div>
+        <div class="leg-stats"><div>Dist.<b>55 nm</b></div><div>Tiempo<b>~7 h</b></div><div>Rumbo<b>ENE</b></div></div>
+        <div class="leg-body">
+          La etapa reina: 28 nm de canal abierto desde el Cap de Formentor al Cap d'Artrutx, y 23 nm más costeando el sur de Menorca hasta la bocana de Maó. Salida al alba para llegar con luz de sobra. Vigilar el parte: con Tramuntana establecida, posponer o entrar por Ciutadella.
+          <div class="anchor"><b>Fondeo · noche 3:</b> Cala Taulera, dentro del puerto de Maó — arena, resguardo total, a un paso de la ciudad en dinghy.</div>
+        </div>
+      </article>
+
+      <article class="leg">
+        <div class="leg-head"><div class="leg-no">D4<span>MIÉ 19</span></div>
+          <div class="leg-title"><h3>Día en Maó</h3><div class="date">Jornada en puerto · 0–3 nm</div></div></div>
+        <div class="leg-stats"><div>Dist.<b>~3 nm</b></div><div>Tiempo<b>libre</b></div><div>Rumbo<b>—</b></div></div>
+        <div class="leg-body">
+          Día completo en el segundo puerto natural más grande del mundo: casco antiguo, mercado del Claustre, Illa del Rei, Es Castell. Reavituallamiento y combustible si hace falta.
+          <div class="anchor"><b>Fondeo · noche 4:</b> repetimos Cala Taulera (o Es Grau, 5 nm al norte, si se quiere algo más salvaje).</div>
+        </div>
+      </article>
+
+      <article class="leg">
+        <div class="leg-head"><div class="leg-no crossing">D5<span>JUE 20</span></div>
+          <div class="leg-title"><h3>Regreso a Mallorca → Cala Moltó</h3><div class="date">Salida 09:00 · llegada ~14:30</div></div></div>
+        <div class="leg-stats"><div>Dist.<b>44 nm</b></div><div>Tiempo<b>5 h 30</b></div><div>Rumbo<b>WSW</b></div></div>
+        <div class="leg-body">
+          Volvemos costeando el sur de Menorca hasta Artrutx y cruzamos el canal hacia la punta NE de Mallorca (Cala Ratjada).
+          <div class="anchor"><b>Fondeo · noche 5:</b> Cala Moltó — arena a 4–5 m, fondeo fácil, protegida de NW a SE por el W. Reserva natural (pesca prohibida), snorkel excelente. Llegar pronto: pocas plazas. <span class="navily">★ Selección Navily</span></div>
+        </div>
+      </article>
+
+      <article class="leg">
+        <div class="leg-head"><div class="leg-no">D6<span>VIE 21</span></div>
+          <div class="leg-title"><h3>Costa este y sur → Es Trenc</h3><div class="date">Salida 08:30 · llegada ~16:10</div></div></div>
+        <div class="leg-stats"><div>Dist.<b>45 nm</b></div><div>Tiempo<b>5 h 40</b></div><div>Rumbo<b>S→W</b></div></div>
+        <div class="leg-body">
+          Bajamos la costa este con parada de comida y baño (~2 h) en <b>Cala Mondragó</b>: arena al W de la bocana, 7–9 m, ojo con la posidonia protegida. Doblamos el Cap de ses Salines y cerramos casi la vuelta.
+          <div class="anchor"><b>Fondeo · noche 6:</b> Platja des Trenc — fondeadero amplio, agua cristalina, arena de buen agarre y atardecer de postal para la última noche. <span class="navily">★ Mondragó y Es Trenc: selección Navily</span></div>
+        </div>
+      </article>
+
+      <article class="leg">
+        <div class="leg-head"><div class="leg-no">D7<span>SÁB 22</span></div>
+          <div class="leg-title"><h3>Es Trenc → S'Arenal (base)</h3><div class="date">Salida 06:30 · amarre ~09:00</div></div></div>
+        <div class="leg-stats"><div>Dist.<b>20 nm</b></div><div>Tiempo<b>2 h 30</b></div><div>Rumbo<b>NW</b></div></div>
+        <div class="leg-body">
+          Madrugón final doblando el Cap Blanc con el amanecer por la popa. Repostaje de gasoil y entrega del barco en el Club Nàutic s'Arenal.
+          <div class="anchor"><b>Importante:</b> confirmar con Iris la hora límite de devolución — si exigen el barco el viernes por la tarde, la noche 6 pasa a la propia bahía de Palma.</div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Millas y horas por etapa · Vc = 8 kn</h2>
+    <div class="charts2">
+      <div class="panel">
+        <h4>Distancia por día (nm)</h4>
+        <p>Las dos travesías del canal de Menorca en magenta.</p>
+        <svg viewBox="0 0 460 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Gráfico de barras de millas por día">
+          <g font-family="IBM Plex Mono,monospace" font-size="11" fill="#4E6A74">
+            <line x1="40" y1="210" x2="450" y2="210" stroke="#15333E" stroke-width="1.5"/>
+            <g stroke="#E5DCC4" stroke-width="1">
+              <line x1="40" y1="150" x2="450" y2="150"/><line x1="40" y1="90" x2="450" y2="90"/><line x1="40" y1="30" x2="450" y2="30"/>
+            </g>
+            <text x="14" y="214">0</text><text x="8" y="154">20</text><text x="8" y="94">40</text><text x="8" y="34">60</text>
+          </g>
+          <!-- barras: escala 3px/nm, base y=210 -->
+          <g>
+            <rect x="52"  y="156" width="38" height="54"  fill="#15333E"/>
+            <rect x="108" y="33"  width="38" height="177" fill="#15333E"/>
+            <rect x="164" y="45"  width="38" height="165" fill="#C2185B"/>
+            <rect x="220" y="201" width="38" height="9"   fill="#15333E"/>
+            <rect x="276" y="78"  width="38" height="132" fill="#C2185B"/>
+            <rect x="332" y="75"  width="38" height="135" fill="#15333E"/>
+            <rect x="388" y="150" width="38" height="60"  fill="#15333E"/>
+          </g>
+          <g font-family="IBM Plex Mono,monospace" font-size="12" font-weight="600" fill="#15333E" text-anchor="middle">
+            <text x="71" y="148">18</text><text x="127" y="25">59</text><text x="183" y="37" fill="#C2185B">55</text>
+            <text x="239" y="193">3</text><text x="295" y="70" fill="#C2185B">44</text><text x="351" y="67">45</text><text x="407" y="142">20</text>
+          </g>
+          <g font-family="IBM Plex Mono,monospace" font-size="11" fill="#4E6A74" text-anchor="middle">
+            <text x="71" y="230">D1</text><text x="127" y="230">D2</text><text x="183" y="230">D3</text>
+            <text x="239" y="230">D4</text><text x="295" y="230">D5</text><text x="351" y="230">D6</text><text x="407" y="230">D7</text>
+          </g>
+        </svg>
+      </div>
+      <div class="panel">
+        <h4>Millas acumuladas</h4>
+        <p>244 nm en total — el 41 % se navega entre D2 y D3.</p>
+        <svg viewBox="0 0 460 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Gráfico de línea de millas acumuladas">
+          <g font-family="IBM Plex Mono,monospace" font-size="11" fill="#4E6A74">
+            <line x1="44" y1="210" x2="450" y2="210" stroke="#15333E" stroke-width="1.5"/>
+            <g stroke="#E5DCC4" stroke-width="1">
+              <line x1="44" y1="140" x2="450" y2="140"/><line x1="44" y1="70" x2="450" y2="70"/>
+            </g>
+            <text x="6" y="214">0</text><text x="6" y="144">100</text><text x="6" y="74">200</text>
+          </g>
+          <!-- puntos: x = 60+idx*62 ; y = 210 - acumulado*0.7 ; acumulados: 18,77,132,135,179,224,244 -->
+          <polyline points="60,197.4 122,156.1 184,117.6 246,115.5 308,84.7 370,53.2 432,39.2"
+                    fill="none" stroke="#C2185B" stroke-width="2.6" stroke-linejoin="round"/>
+          <g fill="#FBF7EC" stroke="#C2185B" stroke-width="2.4">
+            <circle cx="60" cy="197.4" r="4.5"/><circle cx="122" cy="156.1" r="4.5"/><circle cx="184" cy="117.6" r="4.5"/>
+            <circle cx="246" cy="115.5" r="4.5"/><circle cx="308" cy="84.7" r="4.5"/><circle cx="370" cy="53.2" r="4.5"/><circle cx="432" cy="39.2" r="4.5"/>
+          </g>
+          <g font-family="IBM Plex Mono,monospace" font-size="10.5" fill="#15333E" text-anchor="middle">
+            <text x="60" y="186">18</text><text x="122" y="145">77</text><text x="184" y="107">132</text>
+            <text x="246" y="133">135</text><text x="308" y="74">179</text><text x="370" y="42">224</text>
+            <text x="432" y="28" font-weight="600" fill="#C2185B">244</text>
+          </g>
+          <g font-family="IBM Plex Mono,monospace" font-size="11" fill="#4E6A74" text-anchor="middle">
+            <text x="60" y="230">D1</text><text x="122" y="230">D2</text><text x="184" y="230">D3</text>
+            <text x="246" y="230">D4</text><text x="308" y="230">D5</text><text x="370" y="230">D6</text><text x="432" y="230">D7</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <div class="tbl-frame" style="margin-top:18px">
+      <table>
+        <thead><tr><th>Día</th><th>Etapa</th><th>Noche en</th><th class="num">NM</th><th class="num">Horas @8kn</th><th class="num">Salida → Llegada</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">D1 · Dom 16</td><td>S'Arenal → Santa Ponça</td><td>Cala de Santa Ponça</td><td class="num">18</td><td class="num">2:15</td><td class="num">11:00 → 13:15</td></tr>
+          <tr><td class="mono">D2 · Lun 17</td><td>Tramuntana (parada Sa Foradada)</td><td>Cala Formentor</td><td class="num">59</td><td class="num">7:20</td><td class="num">08:00 → 17:00</td></tr>
+          <tr><td class="mono">D3 · Mar 18</td><td>Travesía Formentor → Maó</td><td>Cala Taulera (Maó)</td><td class="num">55</td><td class="num">6:55</td><td class="num">07:00 → 14:00</td></tr>
+          <tr><td class="mono">D4 · Mié 19</td><td>Día en Maó</td><td>Cala Taulera / Es Grau</td><td class="num">3</td><td class="num">—</td><td class="num">libre</td></tr>
+          <tr><td class="mono">D5 · Jue 20</td><td>Travesía Maó → Cala Moltó</td><td>Cala Moltó</td><td class="num">44</td><td class="num">5:30</td><td class="num">09:00 → 14:30</td></tr>
+          <tr><td class="mono">D6 · Vie 21</td><td>Costa E + S (parada Mondragó)</td><td>Platja des Trenc</td><td class="num">45</td><td class="num">5:40</td><td class="num">08:30 → 16:10</td></tr>
+          <tr><td class="mono">D7 · Sáb 22</td><td>Es Trenc → base</td><td>— (entrega)</td><td class="num">20</td><td class="num">2:30</td><td class="num">06:30 → 09:00</td></tr>
+          <tr class="total"><td></td><td>Total</td><td>6 noches fondeadas</td><td class="num">244</td><td class="num">~30:30</td><td class="num"></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Notas del patrón</h2>
+    <div class="notes">
+      <ul>
+        <li><b>Meteo de la travesía (D3 y D5):</b> el canal de Menorca se pica rápido con Tramuntana (N). Comprobar el parte 48 h antes; el plan tiene margen — el día de Maó (D4) puede actuar de comodín si hay que retrasar el cruce.</li>
+        <li><b>Posidonia:</b> en Sa Foradada, Cala Moltó y Mondragó fondear únicamente sobre claros de arena — pradera protegida y multas serias en Baleares.</li>
+        <li><b>Plazas de fondeo:</b> en agosto, llegar antes de las 14:00 a Cala Moltó y Mondragó (capacidad muy limitada según los comentarios de Navily).</li>
+        <li><b>Hora de entrega:</b> confirmar con Iris (Micaela, +34 696 625 048) la hora límite del sábado 22 y la política de repostaje antes de fijar la última noche en Es Trenc.</li>
+        <li><b>Cabrera (opcional):</b> queda a 9 nm de Es Trenc — si se solicita permiso de boya del Parque Nacional con antelación, podría sustituir a la noche 6.</li>
+        <li><b>Combustible:</b> ~30 h de motor/marcha mixta; repostar en Maó (D4) a mitad de ruta y en s'Arenal a la entrega.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">PLAN DE NAVEGACIÓN · ELABORADO 12 JUN 2026 · FONDEADEROS: BLOG.NAVILY.COM · DISTANCIAS Y ETA ORIENTATIVOS SOBRE Vc 8 KN — NO SUSTITUYE LA PLANIFICACIÓN OFICIAL DEL PATRÓN</div>
+</footer>
+
+</body>
+</html>
